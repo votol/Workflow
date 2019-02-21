@@ -6,6 +6,7 @@ import os
 import uuid
 import shutil
 import subprocess
+import ccsGeneral as ccs
 
 
 parser = argparse.ArgumentParser(description='Creation parameters')
@@ -13,6 +14,10 @@ parser.add_argument('-n','--name', required=True, help='name of new project')
 args = parser.parse_args()
 
 #prepairing
+if not ccs.checkName(args.name):
+    print("Bad project name.")
+    exit(-1)
+
 if os.path.isdir(args.name):
     print("Sorry but project with given name already exists.")
     exit(-1)
