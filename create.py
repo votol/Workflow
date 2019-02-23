@@ -29,7 +29,7 @@ current_dir = os.getcwd()
 #creating folder structure
 os.mkdir(args.name)
 os.mkdir(args.name + "/src")
-os.mkdir(args.name + "/workkDir")
+os.mkdir(args.name + "/workDir")
 os.mkdir(args.name + "/test")
 
 try:
@@ -57,6 +57,10 @@ try:
         outfile.write("int main(int argc, char **argv)\n{\n")
         outfile.write("    return 0;\n}\n")
 
+    #generate .gitignore
+    with open(args.name + "/.gitignore", 'w') as outfile:
+        outfile.write("workDir\n")
+    
     #copying files
     shutil.copyfile(work_dir + "/resources/sampleProject/CMakeLists.txt", args.name + '/src/CMakeLists.txt')
     shutil.copyfile(work_dir + "/resources/sampleProject/Makefile", args.name + '/Makefile')

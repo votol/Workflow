@@ -4,7 +4,7 @@ current_dir := $(patsubst %/,%,$(dir $(mkfile_path)))
 
 build_test:
 	echo $(current_dir)
-	mkdir -p $(current_dir)/workkDir/test
-	mkdir -p $(current_dir)/workkDir/test/build
-	cmake -D CMAKE_BUILD_TYPE=Debug -D EXECUTABLE_OUTPUT_PATH=$(current_dir)/workkDir/test -D LIBRARY_OUTPUT_PATH=$(current_dir)/workkDir/test -B$(current_dir)/workkDir/test/build -H$(current_dir)/
-	make -C $(current_dir)/workkDir/test/build -j `nproc` VERBOSE=1
+	mkdir -p $(current_dir)/workDir/test
+	mkdir -p $(current_dir)/workDir/test/build
+	cmake -D CMAKE_BUILD_TYPE=Debug -D EXECUTABLE_OUTPUT_PATH=$(current_dir)/workDir/test -D LIBRARY_OUTPUT_PATH=$(current_dir)/workDir/test -B$(current_dir)/workDir/test/build -H$(current_dir)/
+	make -C $(current_dir)/workDir/test/build -j `nproc` VERBOSE=1
