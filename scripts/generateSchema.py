@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-
-import argparse
 import os
+import argparse
 import ruamel.yaml
-import ccsGeneral as ccs
+import ccs.general as ccs
 
 parser = argparse.ArgumentParser(description='Generation parameters')
 parser.add_argument('-f','--file', required=True, help='generating file')

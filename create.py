@@ -6,7 +6,7 @@ import os
 import uuid
 import shutil
 import subprocess
-import scripts.ccsGeneral as ccs
+import scripts.ccs.general as ccs
 
 
 parser = argparse.ArgumentParser(description='Creation parameters')
