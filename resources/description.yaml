@@ -21,9 +21,9 @@ properties:
   #you should not redefine this properties
   #Here should go the list of items, each of which describes single property
   - name: sample_property
-    optional: true # a boolean property which shows if this property is required for calculation. Default false 
-    list: false #flag to show that if need to set a list of properties here. Default false
-    type: int #shows the type of the property: currently we support only int, string, float boolean  
+    optional: true # a boolean property which shows if this property is required for calculation. Default: false 
+    list: false #flag to show that if need to set a list of properties here. Default: false
+    type: int #shows the type of the property: currently we support only int, string, float, boolean  
 outputs:
   #a list of outputs which calculator will generate. Should be defined as a list of items
   - name: sample_output
