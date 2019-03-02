@@ -51,18 +51,16 @@ try:
         outfile.write("project(CalcProj)\n\n")
         outfile.write("add_subdirectory(src)\n")
 
-    #generate base main file
-    with open(args.name + "/src/main.cpp", 'w') as outfile:
-        outfile.write("#include \"schema.h\"\n\n")
-        outfile.write("int main(int argc, char **argv)\n{\n")
-        outfile.write("    return 0;\n}\n")
-
     #generate .gitignore
     with open(args.name + "/.gitignore", 'w') as outfile:
         outfile.write("workDir\n")
     
     #copying files
     shutil.copyfile(work_dir + "/resources/sampleProject/CMakeLists.txt", args.name + '/src/CMakeLists.txt')
+    shutil.copyfile(work_dir + "/resources/sampleProject/main.cpp", args.name + '/src/main.cpp')
+    shutil.copyfile(work_dir + "/resources/sampleProject/OutputInterface.h", args.name + '/src/OutputInterface.h')
+    shutil.copyfile(work_dir + "/resources/sampleProject/NetCdfWriter.h", args.name + '/src/NetCdfWriter.h')
+    shutil.copyfile(work_dir + "/resources/sampleProject/NetCdfWriter.cpp", args.name + '/src/NetCdfWriter.cpp')
     shutil.copyfile(work_dir + "/resources/sampleProject/Makefile", args.name + '/Makefile')
 
     #some things with git

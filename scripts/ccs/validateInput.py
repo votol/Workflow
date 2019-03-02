@@ -83,7 +83,7 @@ def getProjectParameters(schema_par: dict) -> List[str]:
         parameters_par.append(element["name"])
     return parameters_par
 
-def validate(input: dict, schema: dict) -> list:
+def validate(input: dict, schema: dict):
     if not isinstance(input, dict):
         raise ValueError("Input should be a dictionary")
     if not isinstance(schema, dict):
