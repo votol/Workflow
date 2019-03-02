@@ -51,13 +51,29 @@ try:
         outfile.write("project(CalcProj)\n\n")
         outfile.write("add_subdirectory(src)\n")
 
+    #generate base main.cpp
+    with open(args.name + "/src/main.cpp", 'w') as outfile:
+        #for the moment I will do it so, but maybe I should find better way
+        outfile.write("#include <iostream>\n")
+        outfile.write("#include \"yaml-cpp/yaml.h\"")
+        outfile.write("#include \"schema.h\"\n")
+        outfile.write("#include \"NetCdfWriter.h\"\n\n")
+        outfile.write("int main(int argc, char **argv)\n{\n")
+        outfile.write("    YAML::Node config = YAML::LoadFile(argv[1]);\n")
+        outfile.write("    std::string output_dir = config[\"properties\"]\n")
+        outfile.write("								  [" + args.name + "Schema::PROPERTY_output_path].as<std::string>();\n")
+        outfile.write("    std::vector<std::unique_ptr<IOutput> > outputs(0);\n")
+        outfile.write("    NetCdfWriter netcdf_writer_instance(\n")
+        outfile.write("			output_dir + \"/output.nc\", outputs, 0);\n")
+        outfile.write("    return 0;\n}\n")
+
+
     #generate .gitignore
     with open(args.name + "/.gitignore", 'w') as outfile:
         outfile.write("workDir\n")
     
     #copying files
     shutil.copyfile(work_dir + "/resources/sampleProject/CMakeLists.txt", args.name + '/src/CMakeLists.txt')
-    shutil.copyfile(work_dir + "/resources/sampleProject/main.cpp", args.name + '/src/main.cpp')
     shutil.copyfile(work_dir + "/resources/sampleProject/OutputInterface.h", args.name + '/src/OutputInterface.h')
     shutil.copyfile(work_dir + "/resources/sampleProject/NetCdfWriter.h", args.name + '/src/NetCdfWriter.h')
     shutil.copyfile(work_dir + "/resources/sampleProject/NetCdfWriter.cpp", args.name + '/src/NetCdfWriter.cpp')
