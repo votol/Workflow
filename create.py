@@ -55,7 +55,7 @@ try:
     with open(args.name + "/src/main.cpp", 'w') as outfile:
         #for the moment I will do it so, but maybe I should find better way
         outfile.write("#include <iostream>\n")
-        outfile.write("#include \"yaml-cpp/yaml.h\"")
+        outfile.write("#include \"yaml-cpp/yaml.h\"\n")
         outfile.write("#include \"schema.h\"\n")
         outfile.write("#include \"NetCdfWriter.h\"\n\n")
         outfile.write("int main(int argc, char **argv)\n{\n")
