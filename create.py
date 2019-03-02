@@ -70,7 +70,6 @@ try:
     subprocess.run(["git submodule add git@github.com:votol/Workflow.git Workflow"], shell=True)
     subprocess.run(["git add ."], shell=True)
     subprocess.run(["git commit -m \"initial commit\""], shell=True)
-    os.chdir(current_dir)
 except subprocess.CalledProcessError as e:
     print("Failed to create project: " + e.output)
     os.chdir(current_dir)
