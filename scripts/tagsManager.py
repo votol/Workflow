@@ -42,7 +42,7 @@ for element in cur_tags:
 # generating new revision
 if cur_rev is None:
     if args.msg is None:
-        print("\x1b[0;31;40mRelease failed: MSG should be set\x1b[0m", file=sys.stderr)
+        print("\x1b[0;31;40mRelease failed: MSG should be set\x1b[0m")
         exit(-1)
 
     num_list =[]
@@ -57,6 +57,8 @@ if cur_rev is None:
 
     cur_rev = "rev" + str(max_value + 1)
     process = subprocess.Popen(["git tag -a " + cur_rev + " -m '" + args.msg + "'"], shell=True)
+    process.wait()
+    process = subprocess.Popen(["git push --tags"], shell=True)
     process.wait()
 print(cur_rev)
 os.chdir(current_dir)
