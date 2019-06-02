@@ -2,6 +2,7 @@
 
 import argparse
 import ruamel.yaml
+import os
 
 
 parser = argparse.ArgumentParser(description='Generation parameters')
@@ -11,3 +12,51 @@ parser.add_argument('-r','--revision', required=True, help='revision')
 parser.add_argument('-c','--comment', required=True, help='revision comment')
 args = parser.parse_args()
 
+
+main_data_dir = os.path.expanduser("~/.ccs/data")
+yaml = ruamel.yaml.YAML()
+
+yaml_stream = open(args.description, "r")
+description = yaml.load(yaml_stream)
+yaml_stream.close()
+
+
+def create_project(create_project_descr):
+    project_descr = {}
+    project_descr["name"] = create_project_descr["general"]["name"]
+    project_descr["description"] = create_project_descr["general"]["description"]
+    os.makedirs(main_data_dir + "/" + create_project_descr["general"]["uuid"])
+    with open(main_data_dir + "/" + create_project_descr["general"]["uuid"] + "/description.yaml", "w") as outfile:
+        yaml.dump(project_descr, outfile)
+
+
+def create_revision(create_revision_descr, create_revision_binary,create_revision_rev,create_revision_msg):
+    rev_descr= create_revision_descr.copy()
+    rev_descr["general"] = {}
+    rev_descr["general"]["comment"] = create_revision_msg
+    rev_descr["general"]["binary"] = create_revision_binary
+    create_revision_work_dir = main_data_dir + "/" + create_revision_descr["general"]["uuid"] + "/" + create_revision_rev
+    os.makedirs(create_revision_work_dir)
+    with open(create_revision_work_dir + "/description.yaml", "w") as outfile:
+        yaml.dump(rev_descr, outfile)
+
+
+project_exists = False
+for object in os.listdir(main_data_dir):
+    if os.path.isdir(main_data_dir + "/" + object):
+        if description["general"]["uuid"] == object:
+            project_exists = True
+            break
+
+if not project_exists:
+    create_project(description)
+
+revision_exists = False
+for object in os.listdir(main_data_dir):
+    if os.path.isdir(main_data_dir + "/" + description["general"]["uuid"] + "/" + object):
+        if args.revision == object:
+            revision_exists = True
+            break
+
+if not revision_exists:
+    create_revision(description, args.file, args.revision, args.comment)
