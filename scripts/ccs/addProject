@@ -3,6 +3,7 @@
 import argparse
 import ruamel.yaml
 import os
+import sqlite3
 
 
 parser = argparse.ArgumentParser(description='Generation parameters')
@@ -39,6 +40,18 @@ def create_revision(create_revision_descr, create_revision_binary,create_revisio
     os.makedirs(create_revision_work_dir)
     with open(create_revision_work_dir + "/description.yaml", "w") as outfile:
         yaml.dump(rev_descr, outfile)
+    create_revision_conn = sqlite3.connect(create_revision_work_dir + '/db.sqlite')
+    create_revision_cursor = create_revision_conn.cursor()
+    create_revision_command = 'CREATE TABLE records ('
+    
+    for element in rev_descr["parameters"]:
+        create_revision_command += element["name"] + ' real, '
+
+    create_revision_command += 'data text)'
+    create_revision_cursor.execute(create_revision_command)
+    create_revision_conn.commit()
+    create_revision_conn.close()
+    
 
 
 project_exists = False
