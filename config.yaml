@@ -1,0 +1,7 @@
+storage:
+  #supported types:
+  #  direct - data is stored directly in home directory in ~/.ccs/data
+  #  link - for data folder a link is created  to path defind in path parameter
+  type: direct
+  # parameter for link type
+  # path: /path/to/storage/place

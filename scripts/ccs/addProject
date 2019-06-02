@@ -1,1 +1,13 @@
 #!/usr/bin/env python3
+
+import argparse
+import ruamel.yaml
+
+
+parser = argparse.ArgumentParser(description='Generation parameters')
+parser.add_argument('-f','--file', required=True, help='binary file')
+parser.add_argument('-d','--description', required=True, help='description yaml file with project schema')
+parser.add_argument('-r','--revision', required=True, help='revision')
+parser.add_argument('-c','--comment', required=True, help='revision comment')
+args = parser.parse_args()
+
