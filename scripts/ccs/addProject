@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 import argparse
 import ruamel.yaml
 import os
@@ -47,7 +48,7 @@ def create_revision(create_revision_descr, create_revision_binary,create_revisio
     for element in rev_descr["parameters"]:
         create_revision_command += element["name"] + ' real, '
 
-    create_revision_command += 'data text)'
+    create_revision_command += 'data INTEGER)'
     create_revision_cursor.execute(create_revision_command)
     create_revision_conn.commit()
     create_revision_conn.close()
@@ -58,6 +59,12 @@ project_exists = False
 for object in os.listdir(main_data_dir):
     if os.path.isdir(main_data_dir + "/" + object):
         if description["general"]["uuid"] == object:
+            yaml_stream = open(main_data_dir + "/" + object + "/description.yaml", "r")
+            control_description = yaml.load(yaml_stream)
+            yaml_stream.close()
+            if control_description["name"] != description["general"]["name"]:
+                sys.exit("Sorry! Seems like another project with same uuid already exists.")
+            
             project_exists = True
             break
 
