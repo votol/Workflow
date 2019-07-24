@@ -47,7 +47,6 @@ yaml.indent(mapping=2, sequence=4, offset=2)
 work_dir = os.path.dirname(os.path.realpath(__file__))
 current_dir = os.getcwd()
 
-os.mkdir(args.name)
 if args.r:
     url = "https://api.github.com/user/repos"
     param_map = {"name" : args.name, "has_wiki": "false"}
