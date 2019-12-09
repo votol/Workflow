@@ -7,6 +7,7 @@ import shutil
 import time
 import subprocess
 import sys
+import uuid
 work_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, work_dir)
 import ccs.validateInput as validation
@@ -33,11 +34,11 @@ try:
         input["properties"] = {}
 
     tmp_dir = None
-    if not os.path.exists(run_dir + "/tmp"):
-        os.makedirs(run_dir + "/tmp")
-        tmp_dir = run_dir + "/tmp"
-    elif os.path.isdir(run_dir + "/tmp"):
-        tmp_dir = run_dir + "/tmp"
+    if not os.path.exists("/tmp/ccs"):
+        os.makedirs("/tmp/ccs")
+    
+    tmp_dir = "/tmp/ccs/" + str(uuid.uuid4())
+    os.makedirs(tmp_dir)
 
     input["properties"]["output_path"] = run_dir
 
